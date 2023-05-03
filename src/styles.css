@@ -33,3 +33,21 @@ img {
 .result {
   font-size: 40px;
 }
+
+/* //------------- */
+
+:root {
+  --main-color: #FFE44D;
+  --form-color: #FFAA0D;
+  --form-color-lighter: #FFF5C0;
+
+  --text-main-color: #1A1A1A;
+  --text-secondary-color: #7b8e98;
+  --outline: #CFD8DC;
+  --text-form-color: #ECEFF1;
+  --white: #FFFFFF;
+
+  --custom-red: #F44336;
+  --custom-blue: #03A9F4;
+  --custom-green: #01A54E;
+}

@@ -1,13 +1,19 @@
 import './styles.css'
 import likeIcon from '../../images/save.svg'
+import cn from 'classnames';
+import { Button } from '../button';
 
-export function Card({name, price, discount, weight, description, picture, ...props}) {
+export function Card({name, price, discount, weight, description, picture, tags, ...props}) {
   // console.log(props);
   const discount_price = Math.round(price - price*discount / 100);
   return (
     <article className='card'>
         <div className="card__stickers card__stickers_type_top-left">
-          {discount !== 0 && <span className='card__discount'>{`-${discount}%`}</span>} 
+          {discount !== 0 && <span className='card__discount'>{`-${discount}%`}</span>}
+          {tags && tags.map(tagName => (
+            <span className={cn('tag', {[`tag_type_${tagName}`]: true})}>{tagName}</span>
+            )
+          )}
         </div>
         <div className="card__stickers card__stickers_type_top-right">
           <button className='card__favorite'>
@@ -24,13 +30,15 @@ export function Card({name, price, discount, weight, description, picture, ...pr
             <h3 className="card__name">{name}</h3>
           </div>
         </a>
-        <a href="#" className="card__cart btn btn_type_primary">В корзину</a>
+        <a href="#">
+          <Button htmlType='button' type='primary' extraClass="card__cart">В корзину</Button>
+        </a>
     </article>
   );
 }
 
 
-
+        // <a href="#" className="card__cart btn btn_type_primary">В корзину</a>
 
 
 // export default App;

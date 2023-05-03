@@ -6,7 +6,8 @@ import { Sort } from '../sort';
 import { Logo } from '../logo';
 import { Search } from '../search';
 import { dataCard } from "../../data";
-import './styles.css'
+import s from './styles.module.css'
+import { Button } from '../button';
 
 export function App() {
 
@@ -32,8 +33,6 @@ export function App() {
   //   handleRequest();
   // }, [searchQuery])
 
-
-
   return (
     <>
         <Header>
@@ -54,3 +53,7 @@ export function App() {
 
 
 // export default App;
+
+// {/* <Button htmlType='button' type='primary' extraClass={s.button}>Купить</Button>
+// <Button htmlType='button' type='secondary'>Отложить</Button>
+// <Button htmlType='button' type='error'>Купить</Button> */}
