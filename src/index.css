@@ -1,5 +1,13 @@
+/* * {
+  display: block;
+} */
+
+/* html {
+  box-sizing: border-box;
+  height: max-content;  
+} */
+
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,3 +19,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* #root {
+  background-image: url('./images/bg.jpg');
+} */
+
+/* .label {
+  display: block;
+  margin: 0 10px;
+}
+.label input {
+  margin-left: 5px;
+}
+
+#root .label:last-child {
+  margin-bottom: 30px;
+}
+
+.header-title {
+  margin: 0;
+  color: dodgerblue;
+  background-color: rgba(252, 135, 93, 0.938);
+}
+
+.header-title span {
+  padding: 0 7px 5px;
+}
+
+.image {
+  max-width: 150px;
+}
+
+.imgDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imgDiv img:last-child {
+  padding: 15px 30px 5px;
+}
+
+div svg {
+  margin: 15px 15px 0;
+} */
