@@ -6,10 +6,12 @@ import './styles.css'
 
 // const dataCardsWithId = dataCard.map(item => ({...item, id: uuidv4()}))
 
-export function CardList({ goods }) {
+export function CardList({ goods, onProductLike, currentUser }) {
   return (
     <div className='cards content__cards'>
-        {goods.map((dataItem, index) => <Card key={index} {...dataItem}/>)}        
+        {goods.map((dataItem, index) => (
+        <Card key={index} {...dataItem} onProductLike={onProductLike} currentUser={currentUser} />
+        ))}        
     </div>
   );
 }

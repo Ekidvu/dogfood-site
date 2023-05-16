@@ -99,6 +99,33 @@
 	display: flex;
 }
 
+.card__favorite svg {
+	fill: var(--white);
+}
+
+.card__favorite svg path:first-child {
+	fill: var(--text-secondary-color);
+}
+
+.card__favorite_is-active svg {
+	fill: var(--custom-red);
+}
+
+.card__favorite_is-active svg path:first-child {
+	fill: var(--custom-red);
+}
+
+/* .card__favorite svg {
+	fill: var(--white);
+	stroke-width: 1px;
+	stroke: var(--text-secondary-color);
+}
+
+.card__favorite_is-active svg {
+	fill: var(--custom-red);
+	stroke-width: 0;
+} */
+
 .card__cart {
 	margin-top: auto;
 }
