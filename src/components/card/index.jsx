@@ -2,14 +2,20 @@ import './styles.css'
 import { ReactComponent as LikeIcon } from '../../images/save.svg'
 import cn from 'classnames';
 import { Button } from '../button';
-import { isLiked } from '../../utils/products';
+import { calcDiscountPrice, isLiked } from '../../utils/products';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+import { CardsContext } from '../../contexts/card-context';
 
-export function Card({ name, price, discount, wight, description, pictures, tags, likes, _id, onProductLike, currentUser, ...props }) {
-  // console.log(props);
-  const discount_price = Math.round(price - price * discount / 100);
+export function Card({ name, price, discount, wight, description, pictures, tags, likes, _id, ...props }) {
+  const discount_price = calcDiscountPrice(price, discount);
+  const { currentUser } = useContext(UserContext);
+  const { handleLike: onProductLike } = useContext(CardsContext);
+
 
   // const isLiked = likes.some(id => id === currentUser._id);
-  const like = isLiked(likes,currentUser?._id)
+  const like = isLiked(likes, currentUser?._id)
 
   function handleClickButtonLike() {
     console.log(likes);
@@ -32,7 +38,7 @@ export function Card({ name, price, discount, wight, description, pictures, tags
         </button>
       </div>
 
-      <a href="#" className='card__link'>
+      <Link to={`/product/${_id}`} className='card__link'>
         <img src={pictures} className='card__image' alt={name} />
         <div className="card__desc">
           <span className={discount !== 0 ? "card__old-price" : "card__price"}>{price}&nbsp;₽</span>
@@ -40,7 +46,7 @@ export function Card({ name, price, discount, wight, description, pictures, tags
           <span className="card__weight">{wight}</span>
           <h3 className="card__name">{name}</h3>
         </div>
-      </a>
+      </Link>
       <a href="#">
         <Button htmlType='button' type='primary' extraClass="card__cart">В корзину</Button>
       </a>

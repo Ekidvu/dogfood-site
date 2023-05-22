@@ -50,7 +50,7 @@
 }
 
 .card__price_type_discount {
-	color: #F44336;
+	color: var(--custom-red);
 }
 
 .card__weight {
@@ -72,7 +72,7 @@
 	font-size: 16px;
 	line-height: 20px;
 	color: #FFFFFF;
-	background-color: #F44336;
+	background-color: var(--custom-red);
 	border-radius: 20px;
 }
 

@@ -3,11 +3,18 @@
 *::before {
   box-sizing: inherit;
 }
+html,
+body {
+  scrollbar-gutter: stable;
+}
+
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 body {
   font-family: "Nunito", "Arial", "Helvetica", sans-serif;
+  height: 100%;
 }
 
 .container {
@@ -24,6 +31,8 @@ img {
 
 .content {
   padding: 20px 0;
+
+  flex: 1;
 }
 
 .content__sort {
@@ -50,4 +59,10 @@ img {
   --custom-red: #F44336;
   --custom-blue: #03A9F4;
   --custom-green: #01A54E;
+}
+
+div#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

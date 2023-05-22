@@ -27,3 +27,12 @@
 .button_type_secondary:hover {
 	border-color: var(--text-secondary-color);
 }
+
+.button_type_border {
+	background-color: transparent;
+    border-color: var(--outline);
+    color: var(--text-main-color);
+}
+.button_type_border:hover {
+	border-color: var(--text-secondary-color);
+}

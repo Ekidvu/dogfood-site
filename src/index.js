@@ -1,7 +1,9 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles.css';
+import { BrowserRouter } from 'react-router-dom'
 import './App.css';
+import './styles.css';
+
 
 import { App } from './components/app';
 
@@ -14,7 +16,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //   </React.StrictMode>
 // );
 
-root.render(<App />)
+root.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter> 
+);
 
 // root.render(<StrictMode><App /></StrictMode>)
 

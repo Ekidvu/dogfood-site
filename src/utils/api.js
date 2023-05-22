@@ -53,6 +53,16 @@ class Api {
             .then(this.#onResponce)
     }  
 
+    getProductById(idProduct) {
+        return fetch(`${this.#baseUrl}/products/${idProduct}`, {
+            headers: this.#headers
+        })
+            .then(this.#onResponce)        
+    }
+
+    getInfoProduct(idProduct) {
+        return Promise.all([this.getProductById(idProduct), this.getUserInfo()])
+    }
 }
 
 const api = new Api({

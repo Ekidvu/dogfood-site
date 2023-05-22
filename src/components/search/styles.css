@@ -3,6 +3,7 @@
 	align-items: center;
 	position: relative;
 	flex: 1;
+	/* max-width: 500px; */
 }
 
 .search__input {
