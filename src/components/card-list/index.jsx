@@ -8,8 +8,7 @@ import { CardsContext } from '../../contexts/card-context';
 
 // const dataCardsWithId = dataCard.map(item => ({...item, id: uuidv4()}))
 
-export function CardList() {
-  const { cards: goods } = useContext(CardsContext);
+export function CardList({ goods }) {
 
   return (
     <div className='cards content__cards'>

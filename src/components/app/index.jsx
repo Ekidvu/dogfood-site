@@ -19,14 +19,19 @@ import { NotFoundPage } from '../../pages/not-found-page';
 import { UserContext } from '../../contexts/current-user-context';
 import { CardsContext } from '../../contexts/card-context';
 import { ThemeContext, themes } from '../../contexts/theme-context';
+import { FavouritesPage } from '../../pages/favourite-page';
+import { TABS_ID } from '../../utils/constants';
 
 export function App() {
   const [cards, setCards] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [isLoading, setIsLoading] = useState(false);
   const [theme, setTheme] = useState(themes.light);
+  const [currentSort, setCurrentSort] = useState('');
+
 
   function handleRequest() {
     // const filterCards = dataCard.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -60,7 +65,13 @@ export function App() {
           return cardState._id === updateCard._id ? updateCard : cardState
         });
         setCards(newProducts)
+        console.log(updateCard.likes);
 
+        if(!like) {
+          setFavourites(prevState => [...prevState, updateCard])
+        } else {
+          setFavourites(prevState => prevState.filter(card => card._id !== updateCard._id))
+        }
         return updateCard;
       })
   }
@@ -75,10 +86,34 @@ export function App() {
       .then(([productsData, userInfoData]) => {
         setCurrentUser(userInfoData);
         setCards(productsData.products);
+
+        const favouriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
+        setFavourites(favouriteProducts)
       })
       .catch(err => console.log(err))
       .finally(() => setIsLoading(false))
   }, [])
+
+  function sortedData(currentSort) {
+    console.log(currentSort);
+
+    switch (currentSort) {
+      case (TABS_ID.CHEAP):
+        setCards(cards.sort((a,b)=> a.price-b.price));
+        break;
+      case (TABS_ID.EXPENSIVE):
+        setCards(cards.sort((a,b)=> b.price-a.price));
+        break;
+      case (TABS_ID.RATED):
+        setCards(cards.sort((a,b)=> b.likes.length-a.likes.length));
+        break;
+      case (TABS_ID.DISCOUNTS):
+        setCards(cards.sort((a,b)=> b.discount-a.discount));
+        break;
+      default: cards.sort((a,b)=> b.price-a.price);
+        break;
+    }
+  }
 
   function toggleTheme() {
     theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark)
@@ -86,11 +121,19 @@ export function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <CardsContext.Provider value={{ cards, handleLike: handleProductLike }}>
+      <CardsContext.Provider value={{ 
+        cards, 
+        favourites,
+        currentSort, 
+        handleLike: handleProductLike, 
+        isLoading, 
+        onSortData: sortedData,
+        setCurrentSort
+        }}>
         <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
           <Header user={currentUser}>
             <Routes>
-              <Route path='/' element={
+              <Route path='/catalog' element={
                 <>
                   <Logo />
                   <Search
@@ -103,7 +146,8 @@ export function App() {
           </Header>
           <main className="content container" style={{ backgroundColor: theme.background }}>
             <Routes>
-              <Route path='/' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading}></CatalogPage>} />
+              <Route path='/catalog' element={<CatalogPage handleProductLike={handleProductLike} currentUser={currentUser} isLoading={isLoading}></CatalogPage>} />
+              <Route path='/favourites' element={<FavouritesPage />} />
               <Route path='/faq' element={<FaqPage />} />
               <Route path='/product/:productID' element={<ProductPage />} />
               <Route path='*' element={<NotFoundPage />} />

@@ -7,11 +7,15 @@ import { ReactComponent as LikeIcon } from '../../images/save.svg'
 import truck from "../../images/truck.svg"
 import quality from "../../images/quality.svg"
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/current-user-context';
+import { ContentHeader } from '../content-header';
 
 
-function Product({ onProductLike, _id, name, pictures, discount, price, likes = [], currentUser, wight, reviews, description }) {
+function Product({ onProductLike, _id, name, pictures, discount, price, likes = [], wight, reviews, description }) {
+    const { currentUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
 
     // console.log(location);
 
@@ -23,16 +27,14 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
     }
 
     function createMarkupDescription(params) {
-        return {__html: description}
+        return { __html: description }
     }
 
     return (
         <>
-            <div className={s.header}>
-                <a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
-                <h1 className="productTitle">{name}</h1>
+            <ContentHeader textButton="Назад" title={name}>
                 <p className={s.articul}>Артикул: <b>2388907</b></p>
-            </div>
+            </ContentHeader>
             <div className={s.product}>
                 <div className={s.imgWrapper}>
                     <img src={pictures} alt={`Изображение ${name}`} />
@@ -121,3 +123,10 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
 }
 
 export default Product;
+
+
+{/* <div className={s.header}>
+<a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
+<h1 className="productTitle">{name}</h1>
+<p className={s.articul}>Артикул: <b>2388907</b></p>
+</div> */}
