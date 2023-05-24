@@ -13,6 +13,6 @@ export function ContentHeader({ title, children, to, textButton }) {
     );
 }
 
-{/* <a href='#' className={s.buttonBack} onClick={() => navigate(to || -1)}>
-{textButton}
-</a> */}
+// {/* <a href='#' className={s.buttonBack} onClick={() => navigate(to || -1)}>
+// {textButton}
+// </a> */}

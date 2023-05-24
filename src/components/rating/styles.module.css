@@ -1,0 +1,7 @@
+.filled {
+    fill: var(--form-color);
+}
+
+.editable {
+    cursor: pointer;
+}

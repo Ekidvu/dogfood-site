@@ -7,14 +7,17 @@ import { ReactComponent as LikeIcon } from '../../images/save.svg'
 import truck from "../../images/truck.svg"
 import quality from "../../images/quality.svg"
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
 import { ContentHeader } from '../content-header';
+import Rating from '../rating';
 
 
 function Product({ onProductLike, _id, name, pictures, discount, price, likes = [], wight, reviews, description }) {
     const { currentUser } = useContext(UserContext);
-    const navigate = useNavigate();
+    const [currentRating, setCurrentRating] = useState(5);
+
+    // const navigate = useNavigate();
     // const location = useLocation();
 
     // console.log(location);
@@ -34,6 +37,7 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
         <>
             <ContentHeader textButton="Назад" title={name}>
                 <p className={s.articul}>Артикул: <b>2388907</b></p>
+                <Rating currentRating={currentRating} reviews={reviews} setCurrentRating={setCurrentRating}/>
             </ContentHeader>
             <div className={s.product}>
                 <div className={s.imgWrapper}>
@@ -125,8 +129,8 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
 export default Product;
 
 
-{/* <div className={s.header}>
-<a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
-<h1 className="productTitle">{name}</h1>
-<p className={s.articul}>Артикул: <b>2388907</b></p>
-</div> */}
+// {/* <div className={s.header}>
+// <a href="#" className='button-back' onClick={() => navigate(-1)}>Назад</a>
+// <h1 className="productTitle">{name}</h1>
+// <p className={s.articul}>Артикул: <b>2388907</b></p>
+// </div> */}

@@ -9,11 +9,10 @@ import { CardsContext } from '../../contexts/card-context';
 // const dataCardsWithId = dataCard.map(item => ({...item, id: uuidv4()}))
 
 export function CardList({ goods }) {
-
   return (
     <div className='cards content__cards'>
       {goods.map((dataItem, index) => (
-        <Card key={index} {...dataItem} />
+        <Card key={dataItem._id} {...dataItem} />
       ))}
     </div>
   );

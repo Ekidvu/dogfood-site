@@ -21,17 +21,26 @@ import { CardsContext } from '../../contexts/card-context';
 import { ThemeContext, themes } from '../../contexts/theme-context';
 import { FavouritesPage } from '../../pages/favourite-page';
 import { TABS_ID } from '../../utils/constants';
+import Form from '../form';
+import RegisterForm from '../form/register-form';
+import Modal from '../modal';
 
 export function App() {
   const [cards, setCards] = useState([]);
   const [favourites, setFavourites] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [isLoading, setIsLoading] = useState(false);
   const [theme, setTheme] = useState(themes.light);
   const [currentSort, setCurrentSort] = useState('');
+  const [modalFormStatus, setModalFormStatus] = useState(false);
 
+  const [contacts, setContacts] = useState([])
+  const debounceSearchQuery = useDebounce(searchQuery, 300);
+
+  const onCloseModalForm = () => {
+    setModalFormStatus(false);
+  }
 
   function handleRequest() {
     // const filterCards = dataCard.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -67,7 +76,7 @@ export function App() {
         setCards(newProducts)
         console.log(updateCard.likes);
 
-        if(!like) {
+        if (!like) {
           setFavourites(prevState => [...prevState, updateCard])
         } else {
           setFavourites(prevState => prevState.filter(card => card._id !== updateCard._id))
@@ -99,18 +108,18 @@ export function App() {
 
     switch (currentSort) {
       case (TABS_ID.CHEAP):
-        setCards(cards.sort((a,b)=> a.price-b.price));
+        setCards(cards.sort((a, b) => a.price - b.price));
         break;
       case (TABS_ID.EXPENSIVE):
-        setCards(cards.sort((a,b)=> b.price-a.price));
+        setCards(cards.sort((a, b) => b.price - a.price));
         break;
       case (TABS_ID.RATED):
-        setCards(cards.sort((a,b)=> b.likes.length-a.likes.length));
+        setCards(cards.sort((a, b) => b.likes.length - a.likes.length));
         break;
       case (TABS_ID.DISCOUNTS):
-        setCards(cards.sort((a,b)=> b.discount-a.discount));
+        setCards(cards.sort((a, b) => b.discount - a.discount));
         break;
-      default: cards.sort((a,b)=> b.price-a.price);
+      default: cards.sort((a, b) => b.price - a.price);
         break;
     }
   }
@@ -119,18 +128,29 @@ export function App() {
     theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark)
   }
 
+  function addContact(dataInfo) {
+    setContacts([...contacts, dataInfo])
+  }
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <CardsContext.Provider value={{ 
-        cards, 
+      <CardsContext.Provider value={{
+        cards,
         favourites,
-        currentSort, 
-        handleLike: handleProductLike, 
-        isLoading, 
+        currentSort,
+        handleLike: handleProductLike,
+        isLoading,
         onSortData: sortedData,
         setCurrentSort
-        }}>
+      }}>
         <UserContext.Provider value={{ currentUser, onUpdateUser: handleUpdateUser }}>
+          {/* <Form handleForm={addContact} /> */}
+          {/* {contacts.map(contact => <p>{`${contact.name}, ${contact.lastname}, ${contact.phoneNumber}`}</p>)} */}
+
+          <Modal isOpen={modalFormStatus} onClose={onCloseModalForm}>
+            <RegisterForm />
+          </Modal>
+          
           <Header user={currentUser}>
             <Routes>
               <Route path='/catalog' element={
