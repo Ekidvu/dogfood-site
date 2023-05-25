@@ -155,14 +155,14 @@ export function App() {
       const path = e.target.getAttribute('path'), modal = e.target.getAttribute('modal');
       const propsForBackground = { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } };
       modal ? navigate(`/${path}`, propsForBackground) : navigate(`/${path}`);
-      console.log('path', path);
-      console.log('modal', modal);
+      // console.log('path', path);
+      // console.log('modal', modal);
   }
   const handleClickButtonReset = (e) => {
     e.preventDefault();
     const modal = e.target.getAttribute('modal');
     const propsForBackground = { replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath } };
-    modal ? navigate('/reset-password', propsForBackground) : navigate('/reset-password')
+    modal ? navigate('/reset-password', propsForBackground) : navigate('/reset-password');
   }
 
   return (

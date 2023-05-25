@@ -34,7 +34,7 @@ function RegisterForm({ onSubmit, onNavigateLogin, modal, path }) {
         }
     })
 
-    console.log('RegisterForm', modal, path);
+    // console.log('RegisterForm', modal, path);
 
     return (
         <Form title='Регистрация' handleFormSubmit={handleSubmit(onSubmit)}>

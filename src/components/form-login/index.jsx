@@ -12,7 +12,7 @@ function Login({ onSubmit, onNavigateRegister, onNavigateReset, modal, path }) {
     //     e.preventDefault();
     //     navigate('/register', {replace: true, state: { backgroundLocation: { ...location, state: null }, initialPath }})
     // }
-    console.log("Login", modal, path);
+    // console.log("Login", modal, path);
 
     const emailRegister = register('email', {
         required: {

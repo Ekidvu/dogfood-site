@@ -9,9 +9,8 @@ const MAX_COUNT_RATING = 5;
 function Rating({ isEditable = false, currentRating, setCurrentRating, reviews }) {
     const [ratingArray, setRatingArray] = useState(new Array(MAX_COUNT_RATING).fill(<></>));
 
-    const ratingPure = !!reviews.length ? reviews.reduce((acc, el) => acc + el.rating, 0) / reviews.length : 0;
-    currentRating = Math.floor(ratingPure);
-    // console.log("ratingPure", ratingPure, "currentRating", currentRating);
+    const ratingPure = !!reviews?.length ? reviews.reduce((acc, el) => acc + el.rating, 0) / reviews.length : 0;
+
 
     const constructRating = (fillRating) => {
         const updateArray = ratingArray.map((ratingElement, index) => {
@@ -23,7 +22,9 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, reviews }
                 <StarIcon className={cn(s.star, {
                     [s.filled]: index < fillRating,
                     [s.editable]: isEditable
-                })} onMouseEnter={() => changeDisplay(index+1)} onMouseLeave={() => changeDisplay(currentRating)} onClick={() => changeRating(index+1)}
+                })} onMouseEnter={() => changeDisplay(index+1)} 
+                    onMouseLeave={() => changeDisplay(currentRating)} 
+                    onClick={() => changeRating(index+1)}
             />;
             return ratingElement;
         });
@@ -38,7 +39,9 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, reviews }
         setCurrentRating(rating);
     }
 
-    useEffect(() => constructRating(ratingPure), [currentRating])
+    useEffect(() => {
+        constructRating(currentRating)
+    }, [currentRating])
 
     return (
         ratingArray.map((r, i) => <span key={i}>{r}</span>)
@@ -47,6 +50,9 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, reviews }
 
 export default Rating;
 
+
+    // currentRating = Math.floor(ratingPure);
+    // console.log("ratingPure", ratingPure, "currentRating", currentRating);
 // onMouseLeave={() => constructRating(currentRating)}
 
 // const constructRating = (currentRating) => {

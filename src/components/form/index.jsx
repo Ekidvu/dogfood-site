@@ -5,7 +5,7 @@ function Form({ handleFormSubmit, title, children }) {
 
     return (
         <form className={s.form} onSubmit={handleFormSubmit}>
-            <h3 className={s.title}>{title}</h3>
+            {title && <h3 className={s.title}>{title}</h3>}
             {children}
         </form>
     );

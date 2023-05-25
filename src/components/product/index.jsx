@@ -7,16 +7,17 @@ import { ReactComponent as LikeIcon } from '../../images/save.svg'
 import truck from "../../images/truck.svg"
 import quality from "../../images/quality.svg"
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/current-user-context';
 import { ContentHeader } from '../content-header';
 import Rating from '../rating';
+import FormReview from '../form-review';
 
 
 function Product({ onProductLike, _id, name, pictures, discount, price, likes = [], wight, reviews, description }) {
     const { currentUser } = useContext(UserContext);
-    const [currentRating, setCurrentRating] = useState(5);
-
+    const [currentRatingReviews, setCurrentRatingReviews] = useState(0);
+    
     // const navigate = useNavigate();
     // const location = useLocation();
 
@@ -33,11 +34,15 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
         return { __html: description }
     }
 
+    useEffect(() => {
+        setCurrentRatingReviews(Math.floor(reviews.reduce((acc, el) => acc + el.rating, 0) / reviews.length || 0))
+    }, [currentRatingReviews])
+
     return (
         <>
             <ContentHeader textButton="Назад" title={name}>
                 <p className={s.articul}>Артикул: <b>2388907</b></p>
-                <Rating currentRating={currentRating} reviews={reviews} setCurrentRating={setCurrentRating}/>
+                <Rating currentRating={currentRatingReviews} reviews={reviews} />
             </ContentHeader>
             <div className={s.product}>
                 <div className={s.imgWrapper}>
@@ -122,6 +127,8 @@ function Product({ onProductLike, _id, name, pictures, discount, price, likes = 
                     </div>
                 </div>
             </div>
+
+            <FormReview title={`Отзыв о товаре ${name}`} reviews={reviews} />
         </>
     );
 }
