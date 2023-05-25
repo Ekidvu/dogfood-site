@@ -36,6 +36,7 @@ export function Header({ children }) {
             <FavouriteIcon />
             {favourites.length !== 0 && <span className={s.iconBubble}>{favourites.length}</span>}
           </Link>
+          <Link to='/login' state={{backgroundLocation: location, initialPath: location.pathname}} replace>Войти</Link>
         </div>
         <ToggleThemeButton />
       </div>

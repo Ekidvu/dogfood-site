@@ -23,7 +23,7 @@ function RegisterForm({ handleForm }) {
     })
 
     return (
-        <form className={s.form} onSubmit={handleSubmit(cbSubmitForm)}>
+        <form className={s.form} onSubmit={handleSubmit(cbSubmitForm)} noValidate>
             <h3>Регистрация</h3>
             <input
                 {...register('name', {

@@ -1,6 +1,5 @@
 import Accordion from '../../components/accordion';
 import { dataFAQ } from './dataFAQ';
-import s from './stlyes.module.css'
 
 function FaqPage() {
 
