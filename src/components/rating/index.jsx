@@ -11,7 +11,6 @@ function Rating({ isEditable = false, currentRating, setCurrentRating, reviews }
 
     const ratingPure = !!reviews?.length ? reviews.reduce((acc, el) => acc + el.rating, 0) / reviews.length : 0;
 
-
     const constructRating = (fillRating) => {
         const updateArray = ratingArray.map((ratingElement, index) => {
             if (index === Math.floor(ratingPure) && ratingPure > Math.floor(ratingPure) + 0.5) ratingElement =

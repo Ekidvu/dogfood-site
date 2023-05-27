@@ -17,11 +17,6 @@ import FormReview from '../form-review';
 function Product({ onProductLike, _id, name, pictures, discount, price, likes = [], wight, reviews, description }) {
     const { currentUser } = useContext(UserContext);
     const [currentRatingReviews, setCurrentRatingReviews] = useState(0);
-    
-    // const navigate = useNavigate();
-    // const location = useLocation();
-
-    // console.log(location);
 
     const discount_price = calcDiscountPrice(price, discount)
     const like = isLiked(likes, currentUser?._id)
