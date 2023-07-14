@@ -1,3 +1,5 @@
+@import '~normalize.css';
+
 *,
 *::after,
 *::before {
@@ -21,7 +23,7 @@ body {
   max-width: 1024px;
   padding-left: 16px;
   padding-right: 16px;
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -31,7 +33,6 @@ img {
 
 .content {
   padding: 20px 0;
-
   flex: 1;
 }
 
@@ -42,6 +43,8 @@ img {
 .result {
   font-size: 40px;
 }
+
+
 
 /* //------------- */
 

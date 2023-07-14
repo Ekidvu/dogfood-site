@@ -6,6 +6,8 @@ import { Spinner } from "../../components/spinner"
 import { CardsContext } from "../../contexts/card-context"
 import { ContentHeader } from "../../components/content-header"
 import { TABS } from "../../utils/constants"
+import { Carousel } from "../../components/carousel"
+import { Card } from "../../components/card"
 
 export const CatalogPage = () => {
     const { cards: goods } = useContext(CardsContext);
@@ -17,6 +19,7 @@ export const CatalogPage = () => {
             onChangeSort={(data)=>console.log(data)}
             />
             <CardList goods={goods} />
+            <Carousel items={goods} component={Card} perView={5} />
         </>
     )
 }

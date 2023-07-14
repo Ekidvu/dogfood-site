@@ -16,15 +16,16 @@ import { CardsContext } from '../../contexts/card-context';
 import { ThemeContext, themes } from '../../contexts/theme-context';
 import { FavouritesPage } from '../../pages/favourite-page';
 import { TABS_ID } from '../../utils/constants';
-import Form from '../form';
-// import RegisterForm from '../form/register-form';
 import Modal from '../modal';
 import RegisterForm from '../form-register';
 import Login from '../form-login';
 import ResetPassword from '../form-reset-password';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../../storage/products/products-slice';
 
 export function App() {
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
+  const cards = useSelector(state => state.products.data)
   const [favourites, setFavourites] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,6 +33,7 @@ export function App() {
   const [theme, setTheme] = useState(themes.light);
   const [currentSort, setCurrentSort] = useState('');
   const [modalFormStatus, setModalFormStatus] = useState(false);
+  const dispatch = useDispatch();
 
   const [contacts, setContacts] = useState([]);
   const debounceSearchQuery = useDebounce(searchQuery, 300);
@@ -54,8 +56,8 @@ export function App() {
     // const filterCards = dataCard.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()))
     // setCards(filterCards)
 
-    api.search(debounceSearchQuery)
-      .then((dataSearch) => setCards(dataSearch))
+    // api.search(debounceSearchQuery)
+    //   .then((dataSearch) => setCards(dataSearch))
   }
 
   function handleFormSubmit(e) {
@@ -69,8 +71,8 @@ export function App() {
 
   function handleUpdateUser(dataUserUpdate) {
     api.setUserInfo(dataUserUpdate)
-      .then((updateUserFromDerver) => {
-        setCurrentUser(updateUserFromDerver)
+      .then((updateUserFromServer) => {
+        setCurrentUser(updateUserFromServer)
       })
   }
 
@@ -81,7 +83,7 @@ export function App() {
         const newProducts = cards.map(cardState => {
           return cardState._id === updateCard._id ? updateCard : cardState
         });
-        setCards(newProducts)
+        // setCards(newProducts)
         console.log(updateCard.likes);
 
         if (!like) {
@@ -98,11 +100,15 @@ export function App() {
   }, [debounceSearchQuery])
 
   useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
+
+  useEffect(() => {
     setIsLoading(true)
     api.getAllInfo()
       .then(([productsData, userInfoData]) => {
         setCurrentUser(userInfoData);
-        setCards(productsData.products);
+        // setCards(productsData.products);
 
         const favouriteProducts = productsData.products.filter(item => isLiked(item.likes, userInfoData._id))
         setFavourites(favouriteProducts)
@@ -114,31 +120,31 @@ export function App() {
   function sortedData(currentSort) {
     console.log(currentSort);
 
-    switch (currentSort) {
-      case (TABS_ID.CHEAP):
-        setCards(cards.sort((a, b) => a.price - b.price));
-        break;
-      case (TABS_ID.EXPENSIVE):
-        setCards(cards.sort((a, b) => b.price - a.price));
-        break;
-      case (TABS_ID.RATED):
-        setCards(cards.sort((a, b) => b.likes.length - a.likes.length));
-        break;
-      case (TABS_ID.DISCOUNTS):
-        setCards(cards.sort((a, b) => b.discount - a.discount));
-        break;
-      default: cards.sort((a, b) => b.price - a.price);
-        break;
-    }
+    // switch (currentSort) {
+    //   case (TABS_ID.CHEAP):
+    //     setCards(cards.sort((a, b) => a.price - b.price));
+    //     break;
+    //   case (TABS_ID.EXPENSIVE):
+    //     setCards(cards.sort((a, b) => b.price - a.price));
+    //     break;
+    //   case (TABS_ID.RATED):
+    //     setCards(cards.sort((a, b) => b.likes.length - a.likes.length));
+    //     break;
+    //   case (TABS_ID.DISCOUNTS):
+    //     setCards(cards.sort((a, b) => b.discount - a.discount));
+    //     break;
+    //   default: cards.sort((a, b) => b.price - a.price);
+    //     break;
+    // }
   }
 
   function toggleTheme() {
     theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark)
   }
 
-  function addContact(dataInfo) {
-    setContacts([...contacts, dataInfo])
-  }
+  // function addContact(dataInfo) {
+  //   setContacts([...contacts, dataInfo])
+  // }
 
   const cbSubmitFormLoginRegister = (dataForm) => {
     console.log('cbSubmitFormLoginRegister', dataForm);

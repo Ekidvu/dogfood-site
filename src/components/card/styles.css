@@ -22,10 +22,15 @@
 	position: relative;
 }
 
+.card a {
+	margin-top: auto;
+}
+
 .card__image {
 	width: 100%;
 	object-fit: contain;
 	margin-bottom: 16px;
+	aspect-ratio: 1 / 1;
 }
 
 .card__old-price {

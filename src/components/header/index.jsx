@@ -7,6 +7,10 @@ import { ToggleThemeButton } from '../toggle-theme-button';
 import s from './styles.module.css'
 import { CardsContext } from '../../contexts/card-context';
 import { ReactComponent as FavouriteIcon } from './img/favourites.svg'
+import { ReactComponent as LogoutIcon } from './img/logout.svg'
+import { ReactComponent as CartIcon } from './img/cart.svg'
+import { ReactComponent as ProfileIcon } from './img/profile.svg'
+import { ReactComponent as UserIcon } from './img/user.svg'
 
 export function Header({ children }) {
   const location = useLocation();
@@ -36,7 +40,26 @@ export function Header({ children }) {
             <FavouriteIcon />
             {favourites.length !== 0 && <span className={s.iconBubble}>{favourites.length}</span>}
           </Link>
-          <Link to='/login' state={{backgroundLocation: location, initialPath: location.pathname}} replace>Войти</Link>
+
+          <Link className={s.favouritesLink} to={{pathname: '/cart'}}>
+            <CartIcon />
+            {favourites.length !== 0 && <span className={s.iconBubble}>{favourites.length}</span>}
+          </Link>
+
+          <Link to='/login' className={s.iconsMenuItem} state={{backgroundLocation: location, initialPath: location.pathname}} replace>
+            <UserIcon />
+            Войти
+            </Link>
+
+          <Link className={s.iconsMenuItem} to={{pathname: '/profile'}}>
+            <ProfileIcon />
+            Макуцва
+          </Link>
+
+          <Link className={s.iconsMenuItem} to={{pathname: '/'}}>
+            <LogoutIcon />
+            Выйти
+          </Link>
         </div>
         <ToggleThemeButton />
       </div>

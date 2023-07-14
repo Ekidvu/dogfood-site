@@ -5,7 +5,6 @@ import { CardsContext } from '../../contexts/card-context';
 
 
 // import { v4 as uuidv4 } from 'uuid';
-
 // const dataCardsWithId = dataCard.map(item => ({...item, id: uuidv4()}))
 
 export function CardList({ goods }) {
